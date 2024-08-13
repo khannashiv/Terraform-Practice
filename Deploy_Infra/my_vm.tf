@@ -1,7 +1,7 @@
 provider "aws" {
     region = "us-east-1"
-    secret_key = "kpuK0flmVLPCkA9KoXqZ2FPV3lbvGLDen8C7gxqU"
-    access_key = "AKIAQSUSBTMJGDWF3US3" 
+    secret_key = "1234"
+    access_key = "1234" 
 }
 
 resource "aws_instance" "my-ec2-vm" {
