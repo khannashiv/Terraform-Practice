@@ -46,3 +46,12 @@ resource "aws_route_table_association" "RT-Subnet-Association" {
   subnet_id      = aws_subnet.Public-subnet.id
   route_table_id = aws_route_table.My-RT.id
 }
+
+resource "aws_instance" "web_server-1" {
+  ami           = "ami-020cba7c55df1f615"
+  instance_type = "t2.micro"
+  security_groups = [  ]
+  tags = {
+    Name = "web-server-1"
+  }
+}
