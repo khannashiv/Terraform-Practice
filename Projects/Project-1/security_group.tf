@@ -9,7 +9,7 @@ resource "aws_security_group" "allow_http_ssh_traffic" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_http_ipv4" {
-  security_group_id = aws_security_group.allow_http_traffic.id
+  security_group_id = aws_security_group.allow_http_ssh_traffic.id
   cidr_ipv4         = aws_vpc.vpc-1.cidr_block
   from_port         = 80
   ip_protocol       = "tcp"
@@ -17,7 +17,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_http_ipv4" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_ssh_ipv4" {
-  security_group_id = aws_security_group.allow_ssh_traffic.id
+  security_group_id = aws_security_group.allow_http_ssh_traffic.id
   cidr_ipv4         = aws_vpc.vpc-1.cidr_block
   from_port         = 22
   ip_protocol       = "tcp"

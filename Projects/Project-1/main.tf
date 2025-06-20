@@ -51,7 +51,7 @@ resource "aws_instance" "web_server-1" {
   ami           = "ami-020cba7c55df1f615"
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.Public-subnet.id
-  vpc_security_group_ids = [aws_security_group.allow_http_traffic.id, aws_security_group.allow_ssh_traffic.id]
+  vpc_security_group_ids = [aws_vpc_security_group_ingress_rule.allow_ssh_ipv4.security_group_id, aws_vpc_security_group_ingress_rule.allow_http_ipv4.security_group_id]
   user_data_base64 = base64encode(file("./user_data.sh"))
   tags = {
     Name = "web-server-1"
