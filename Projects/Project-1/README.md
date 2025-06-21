@@ -22,50 +22,65 @@ This project provisions a basic AWS infrastructure using Terraform. It creates a
 
 ```mermaid
 flowchart TD
-    igw[Internet Gateway]
-    nat[NAT Gateway]
-    eip[Elastic IP]
-    vpc[VPC]
-    pub[Public Subnet]
-    pub2[Public Subnet 2]
-    priv[Private Subnet]
+  %% Networking Layer
+  subgraph AWS VPC
+    direction TB
+    subgraph Public Subnets
+      pub1[Public Subnet 1]
+      pub2[Public Subnet 2]
+    end
+    subgraph Private Subnet
+      priv[Private Subnet]
+    end
+  end
+
+  %% Compute Layer
+  subgraph EC2 Instances
     web1[EC2: web_server-1]
     web2[EC2: web_server-2]
     repo[EC2: Repo_server]
-    alb[Application Load Balancer]
-    tg[Target Group]
-    rt_pub[Public Route Table]
-    rt_priv[Private Route Table]
+  end
 
-    vpc --> pub
-    vpc --> pub2
-    vpc --> priv
-    pub --> web1
-    pub2 --> web2
-    priv --> repo
+  %% Load Balancer Layer
+  alb[Application Load Balancer]
+  tg[Target Group]
 
-    pub --> rt_pub
-    pub2 --> rt_pub
-    priv --> rt_priv
+  %% Networking Components
+  igw[Internet Gateway]
+  nat[NAT Gateway]
+  eip[Elastic IP]
+  rt_pub[Public Route Table]
+  rt_priv[Private Route Table]
 
-    igw --> rt_pub
-    rt_pub --> pub
-    rt_pub --> pub2
+  %% Connections
+  igw --> rt_pub
+  rt_pub --> pub1
+  rt_pub --> pub2
+  pub1 --> web1
+  pub2 --> web2
 
-    eip --> nat
-    nat --> rt_priv
-    rt_priv --> priv
+  eip --> nat
+  nat --> rt_priv
+  rt_priv --> priv
+  priv --> repo
 
-    igw -.-> nat
+  alb --> tg
+  tg --> web1
+  tg --> web2
+  alb --> pub1
+  alb --> pub2
 
-    alb --> tg
-    tg --> web1
-    tg --> web2
-    alb --> pub
-    alb --> pub2
+  %% Optional: Styling for clarity
+  classDef ec2 fill:#f9f,stroke:#333,stroke-width:1.5px;
+  class web1,web2,repo ec2;
+  classDef net fill:#e3f6fc,stroke:#333,stroke-width:1px;
+  class pub1,pub2,priv net;
 
-    classDef ec2 fill:#f9f,stroke:#333,stroke-width:1px;
-    class web1,web2,repo ec2;
+  %% Internet Gateway association
+  igw -.-> nat
+
+  %% Legends
+  %% You can add legend nodes if needed for further explanation
 ```
 
 ## Resources Created
