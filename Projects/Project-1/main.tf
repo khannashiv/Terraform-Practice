@@ -53,7 +53,7 @@ resource "aws_instance" "web_server-1" {
   instance_type = var.instance_type
   subnet_id     = aws_subnet.Public-subnet.id
   vpc_security_group_ids = [aws_vpc_security_group_ingress_rule.allow_ssh_ipv4.security_group_id, aws_vpc_security_group_ingress_rule.allow_http_ipv4.security_group_id]
-  user_data_base64 = base64encode(file("./user_data_web_1.sh"))
+  user_data_base64 = base64encode(file("./user_data/user_data_web_1.sh"))
   key_name   = "Jenkins-KVP"
   tags = {
     Name = "web-server-1"
@@ -65,7 +65,7 @@ resource "aws_instance" "web_server-2" {
   instance_type = var.instance_type
   subnet_id     = aws_subnet.Public-subnet.id
   vpc_security_group_ids = [aws_vpc_security_group_ingress_rule.allow_ssh_ipv4.security_group_id, aws_vpc_security_group_ingress_rule.allow_http_ipv4.security_group_id]
-  user_data_base64 = base64encode(file("./user_data_web_2.sh"))
+  user_data_base64 = base64encode(file("./user_data/user_data_web_2.sh"))
   key_name   = "Jenkins-KVP"
   tags = {
     Name = "web-server-2"
