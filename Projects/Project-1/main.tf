@@ -58,3 +58,32 @@ resource "aws_instance" "web_server-1" {
     Name = "web-server-1"
   }
 }
+
+resource "aws_instance" "Repo_server" {
+  ami           = "ami-020cba7c55df1f615"
+  instance_type = "t2.micro"
+  subnet_id     = aws_subnet.Private-subnet.id
+  vpc_security_group_ids = [aws_vpc_security_group_ingress_rule.allow_ssh_ipv4.security_group_id, aws_vpc_security_group_ingress_rule.allow_http_ipv4.security_group_id]
+  key_name   = "Jenkins-KVP"
+  tags = {
+    Name = "Repo-Server"
+  }
+}
+
+resource "aws_eip" "MY_EIP" {
+  domain = "vpc"
+  instance = aws_instance.Repo_server.id
+}
+
+resource "aws_nat_gateway" "My-NAT-GW" {
+  allocation_id = aws_eip.MY_EIP.id
+  subnet_id     = aws_subnet.Public-subnet.id
+
+  tags = {
+    Name = "My-NAT-GW"
+  }
+
+  # To ensure proper ordering, it is recommended to add an explicit dependency
+  # on the Internet Gateway for the VPC.
+  depends_on = [aws_internet_gateway.My-igw]
+}
