@@ -72,7 +72,7 @@ resource "aws_instance" "Repo_server" {
 
 resource "aws_eip" "MY_EIP" {
   domain = "vpc"
-  instance = aws_instance.Repo_server.id
+  #instance = aws_instance.Repo_server.id
 }
 
 resource "aws_nat_gateway" "My-NAT-GW" {
