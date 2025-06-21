@@ -72,7 +72,7 @@ resource "aws_instance" "web_server-1" {
   user_data_base64       = base64encode(file("./user_data/user_data_web_1.sh"))
   key_name               = "Jenkins-KVP"
   tags = {
-    Name = "web-server-2"
+    Name = "web-server-1"
   }
 }
 
