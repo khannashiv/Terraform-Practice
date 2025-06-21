@@ -25,6 +25,16 @@ resource "aws_subnet" "Public-subnet" {
   }
 }
 
+resource "aws_subnet" "Public-subnet-2" {
+  vpc_id                  = aws_vpc.vpc-1.id
+  cidr_block              = var.Public-subnet
+  availability_zone       = "us-east-1c"
+  map_public_ip_on_launch = true
+  tags = {
+    Name = "Public-Subnet-2"
+  }
+}
+
 resource "aws_internet_gateway" "My-igw" {
   vpc_id = aws_vpc.vpc-1.id
   tags = {
@@ -69,6 +79,18 @@ resource "aws_instance" "web_server-2" {
   key_name               = "Jenkins-KVP"
   tags = {
     Name = "web-server-2"
+  }
+}
+
+resource "aws_instance" "web_server-3" {
+  ami                    = var.ami
+  instance_type          = var.instance_type
+  subnet_id              = aws_subnet.Public-subnet-2.id
+  vpc_security_group_ids = [aws_vpc_security_group_ingress_rule.allow_ssh_ipv4.security_group_id, aws_vpc_security_group_ingress_rule.allow_http_ipv4.security_group_id]
+  user_data_base64       = base64encode(file("./user_data/user_data_web_1.sh"))
+  key_name               = "Jenkins-KVP"
+  tags = {
+    Name = "web-server-3"
   }
 }
 

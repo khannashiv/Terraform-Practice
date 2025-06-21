@@ -4,7 +4,7 @@ resource "aws_alb" "ALB" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.allow_http_ssh_traffic.id]
-  subnets            = [aws_subnet.Public-subnet.id]
+  subnets            = [aws_subnet.Public-subnet.id, aws_subnet.Public-subnet-2.id]
   tags = {
     Name = "ALB"
   }

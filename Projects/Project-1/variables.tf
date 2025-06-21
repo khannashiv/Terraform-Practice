@@ -13,6 +13,11 @@ variable "Public-subnet" {
   default = "10.0.2.0/24"
 }
 
+variable "Public-subnet-2" {
+  type    = string
+  default = "10.0.3.0/24"
+}
+
 variable "instance_type" {
   type    = string
   default = "t2.micro"
