@@ -22,65 +22,66 @@ This project provisions a basic AWS infrastructure using Terraform. It creates a
 
 ```mermaid
 flowchart TD
-  %% Networking Layer
-  subgraph AWS VPC
-    direction TB
-    subgraph Public Subnets
-      pub1[Public Subnet 1]
-      pub2[Public Subnet 2]
-    end
-    subgraph Private Subnet
-      priv[Private Subnet]
-    end
-  end
 
-  %% Compute Layer
-  subgraph EC2 Instances
-    web1[EC2: web_server-1]
-    web2[EC2: web_server-2]
-    repo[EC2: Repo_server]
+  %% VPC Container
+  subgraph AWS_VPC [AWS VPC]
+    direction TB
+
+    %% Public Subnets & Resources
+    subgraph Public_Subnets [Public Subnets]
+      direction TB
+      pub1[Subnet 1]
+      pub2[Subnet 2]
+      web1[EC2: Web Server 1]
+      web2[EC2: Web Server 2]
+      pub1 --> web1
+      pub2 --> web2
+    end
+
+    %% Private Subnet & Resources
+    subgraph Private_Subnet [Private Subnet]
+      priv[Subnet]
+      repo[EC2: Repo Server]
+      priv --> repo
+    end
+
+    %% Routing & Gateways
+    igw[Internet Gateway]
+    nat[NAT Gateway]
+    eip[Elastic IP]
+    rt_pub[Public Route Table]
+    rt_priv[Private Route Table]
+
+    igw --> rt_pub
+    rt_pub --> pub1
+    rt_pub --> pub2
+
+    eip --> nat
+    nat --> rt_priv
+    rt_priv --> priv
   end
 
   %% Load Balancer Layer
   alb[Application Load Balancer]
   tg[Target Group]
 
-  %% Networking Components
-  igw[Internet Gateway]
-  nat[NAT Gateway]
-  eip[Elastic IP]
-  rt_pub[Public Route Table]
-  rt_priv[Private Route Table]
-
-  %% Connections
-  igw --> rt_pub
-  rt_pub --> pub1
-  rt_pub --> pub2
-  pub1 --> web1
-  pub2 --> web2
-
-  eip --> nat
-  nat --> rt_priv
-  rt_priv --> priv
-  priv --> repo
-
   alb --> tg
   tg --> web1
   tg --> web2
+
+  %% External Access
   alb --> pub1
   alb --> pub2
 
-  %% Optional: Styling for clarity
+  %% Styling for clarity
   classDef ec2 fill:#f9f,stroke:#333,stroke-width:1.5px;
   class web1,web2,repo ec2;
   classDef net fill:#e3f6fc,stroke:#333,stroke-width:1px;
   class pub1,pub2,priv net;
 
-  %% Internet Gateway association
-  igw -.-> nat
+  %% Optional Notes
+  %% igw -.-> nat  %% IGW and NAT are not directly connected in AWS
 
-  %% Legends
-  %% You can add legend nodes if needed for further explanation
 ```
 
 ## Resources Created
