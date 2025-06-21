@@ -87,3 +87,23 @@ resource "aws_nat_gateway" "My-NAT-GW" {
   # on the Internet Gateway for the VPC.
   depends_on = [aws_internet_gateway.My-igw]
 }
+
+resource "aws_route_table" "MY-RT-Private" {
+  vpc_id = aws_vpc.vpc-1.id
+
+  route {
+  cidr_block = "0.0.0.0/0"
+  nat_gateway_id = aws_nat_gateway.My-NAT-GW.id
+}
+
+tags = {
+  Name = "Private-RT"
+}
+
+}
+
+resource "aws_route_table_association" "RT-Private-Subnet-Association" {
+  
+  subnet_id = aws_subnet.Private-subnet.id
+  route_table_id = aws_route_table.MY-RT-Private.id
+}
