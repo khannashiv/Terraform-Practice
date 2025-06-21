@@ -32,3 +32,11 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
   ip_protocol       = "-1" # semantically equivalent to all ports
 }
 
+# Allowing SSH only for private instance sitting inside private subnet 
+resource "aws_vpc_security_group_ingress_rule" "ssh_from_public_sg" {
+  security_group_id = aws_security_group.allow_http_ssh_traffic.id
+  cidr_ipv4         = "10.0.2.0/24"
+  ip_protocol       = "tcp"
+  from_port         = 22
+  to_port           = 22
+}
