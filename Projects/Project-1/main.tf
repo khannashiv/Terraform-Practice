@@ -63,7 +63,7 @@ resource "aws_instance" "Repo_server" {
   ami           = "ami-020cba7c55df1f615"
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.Private-subnet.id
-  vpc_security_group_ids = [aws_vpc_security_group_ingress_rule.ssh_from_public_sg.security_group_id]
+  vpc_security_group_ids = [aws_vpc_security_group_ingress_rule.allow_ssh_ipv4_private_subnet.security_group_id]
   key_name   = "Jenkins-KVP"
   tags = {
     Name = "Repo-Server"
