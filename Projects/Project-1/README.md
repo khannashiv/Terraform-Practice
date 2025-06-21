@@ -134,7 +134,17 @@ See [`outputs.tf`](outputs.tf) for details on what is output after apply:
 
 ---
 
-## Outcomes of Hands-on 
+## Outcomes of Hands-on
+
+This section summarizes the key outcomes we will achieve by completing this project:
+
+   - Gain practical experience provisioning AWS infrastructure using Terraform.
+   - Understand how to design and implement a VPC with public and private subnets.
+   - Learn to configure security groups, route tables, and networking components.
+   - Deploy and manage EC2 instances with custom user data scripts.
+   - Set up and test an Application Load Balancer with target groups.
+   - Validate infrastructure by testing connectivity and load balancing behavior.
+   - Develop skills in managing Terraform state and best practices for version control.
 
 ---
 
@@ -163,3 +173,29 @@ See [`outputs.tf`](outputs.tf) for details on what is output after apply:
 - ![Terraform-project-23](./images/Terraform-project-23.png)
 
 --- 
+## Testing the ALB Behaviour
+
+After deploying the infrastructure, we can verify the Application Load Balancer (ALB) is distributing traffic to your web servers as expected.
+
+**ALB Endpoint:**  
+`Application-Load-Balancer-1413696647.us-east-1.elb.amazonaws.com`
+
+### Basic Connectivity Test
+
+Use `curl` to check if the ALB is reachable and serving content:
+
+```sh
+curl --http1.0 --header "Connection: close" http://Application-Load-Balancer-1413696647.us-east-1.elb.amazonaws.com
+```
+
+### Load Balancing Test
+
+To observe load balancing between the two web servers, run the following loop. This sends multiple requests and extracts the "Instance ID" from each response, showing which backend instance handled each request:
+
+```sh
+for i in {1..10}; do
+   curl -s --http1.0 -H "Connection: close" http://Application-Load-Balancer-1413696647.us-east-1.elb.amazonaws.com | grep "Instance ID"
+done
+```
+
+We should see alternating or distributed "Instance ID" values, confirming that the ALB is routing requests to both web servers.
