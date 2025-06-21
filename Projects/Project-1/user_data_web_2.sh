@@ -18,8 +18,11 @@ cat <<EOF > /var/www/custom-web/index.html
   <title>Welcome to my Terraform Project !!</title>
 </head>
 <body>
-  <h1>Hello from Web Server 2 ..!!</h1>
+  <h1>Hello from web server 2 ..!!</h1>
   <p>This is a custom web server using Python's built-in HTTP module.</p>
 </body>
 </html>
 EOF
+
+# Start the web server on port 80 using Python (in the background)
+nohup python3 -m http.server 80 --directory /var/www/custom-web &
