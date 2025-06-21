@@ -18,7 +18,7 @@ cat <<EOF > /var/www/custom-web/index.html
   <title>Welcome to my Terraform Project !!</title>
 </head>
 <body>
-  <h1>Hello from EC2 Ubuntu instance!</h1>
+  <h1>Hello from web server 1 ..!!</h1>
   <p>This is a custom web server using Python's built-in HTTP module.</p>
 </body>
 </html>
