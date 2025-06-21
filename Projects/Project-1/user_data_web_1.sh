@@ -19,7 +19,6 @@ REGION=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/la
 HOSTNAME=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/hostname)
 
 # Write HTML
-# Write HTML
 cat <<EOF > /var/www/custom-web/index.html
 <!DOCTYPE html>
 <html>
