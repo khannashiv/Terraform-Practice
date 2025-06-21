@@ -1,27 +1,24 @@
 # Project 1 – AWS VPC, EC2, and Networking with Terraform
 
-This project provisions a basic AWS infrastructure using Terraform. It creates a VPC, public and private subnets, security groups, EC2 instances (web servers and a repo server), NAT gateway, Application Load Balancer, and associated networking resources.
+This project provisions a basic AWS infrastructure using Terraform: VPC, public/private subnets, security groups, EC2 instances (web servers and a repo server), NAT gateway, Application Load Balancer, and networking resources.
 
 ## Structure
 
 - **main.tf**: Core infrastructure (VPC, subnets, route tables, EC2, NAT, EIP)
-- **alb.tf**: Application Load Balancer, target group, listener, and target group attachments
+- **alb.tf**: Application Load Balancer, target group, listener, and attachments
 - **providers.tf**: AWS provider configuration
 - **variables.tf**: Input variables for customization
-- **security_group.tf**: Security groups and rules for public/private subnets
+- **security_group.tf**: Security groups and rules
 - **outputs.tf**: Outputs for public IPs, ALB DNS, and target group info
 - **user_data/**: User data scripts for web servers
-  - `user_data_web_1.sh`: Installs Python, curl, jq; serves a custom HTML page with EC2 metadata (styled).
-  - `user_data_web_2.sh`: Similar to web_1, with a different HTML page.
-- **terraform.tfstate / terraform.tfstate.backup**: Terraform state files (should not be versioned)
-- **.terraform/**: Terraform provider plugins (should not be versioned)
-- **.terraform.lock.hcl**: Provider dependency lock file (should not be versioned)
 - **README.md**: This documentation
+
+> **Note:**  
+> Terraform state files (`terraform.tfstate*`), `.terraform/`, and `.terraform.lock.hcl` should not be versioned (see `.gitignore`).
 
 ## Architecture Diagram
 
 ```mermaid
-
 flowchart TB
   %% Subnet Layer
   subgraph AWS_VPC["AWS VPC"]
@@ -70,30 +67,20 @@ flowchart TB
   %% Style
   classDef blackbox fill:#000,color:orange,stroke:#000,font-weight:bold;
   class igw,nat,eip,rt_pub,rt_priv,pub1,pub2,priv,web1,web2,repo,alb,tg blackbox;
-
 ```
 
 ## Resources Created
 
-- **VPC**: Custom VPC with CIDR block from `variables.tf`
-- **Subnets**: Public and private subnets in different AZs
-- **Internet Gateway**: For public subnet internet access
-- **Route Tables**: Public and private, with associations
+- **VPC**: Custom CIDR
+- **Subnets**: Public/private in different AZs
+- **Internet Gateway**: For public subnet access
+- **Route Tables**: Public/private, with associations
 - **NAT Gateway**: For private subnet outbound internet
 - **Elastic IP**: For NAT Gateway
-- **Security Groups**:
-  - Public: Allows HTTP (80) and SSH (22) from anywhere
-  - Private: Allows SSH (22) from private subnet only
-- **EC2 Instances**:
-  - `web_server-1` and `web_server-2` in public subnets, each with custom user data
-  - `Repo_server` in private subnet
-- **Application Load Balancer**:
-  - ALB in public subnets, with HTTP listener and target group
-  - Both web servers registered as targets
-- **Outputs**:
-  - Public IPs of web servers
-  - ALB DNS name and internal flag
-  - Target group protocol and stickiness
+- **Security Groups**: Public (HTTP/SSH), Private (SSH from private subnet)
+- **EC2 Instances**: Two web servers (public), one repo server (private)
+- **Application Load Balancer**: In public subnets, with HTTP listener and target group
+- **Outputs**: Public IPs, ALB DNS, target group info
 
 ## Usage
 
@@ -110,19 +97,14 @@ flowchart TB
    terraform apply
    ```
 
-## User Data Scripts
-
-- **user_data_web_1.sh**: Installs Python, curl, jq; serves a styled HTML page with EC2 metadata.
-- **user_data_web_2.sh**: Installs Python, curl, jq; serves a different HTML page with EC2 metadata.
-
 ## Variables
 
-See [`variables.tf`](variables.tf) for configurable options like VPC/subnet CIDRs, instance type, and AMI.
+See [`variables.tf`](variables.tf) for configurable options (VPC/subnet CIDRs, instance type, AMI, etc).
 
 ## Outputs
 
-See [`outputs.tf`](outputs.tf) for details on what is output after apply:
-- Public IPs of both web servers
+See [`outputs.tf`](outputs.tf) for details:
+- Public IPs of web servers
 - ALB DNS name and internal flag
 - Target group protocol and stickiness
 
@@ -130,23 +112,22 @@ See [`outputs.tf`](outputs.tf) for details on what is output after apply:
 
 - Ensure your AWS credentials are configured.
 - The key pair `Jenkins-KVP` must exist in your AWS account.
-- State files and `.terraform/` are ignored via `.gitignore`.
 
 ---
 
-## Outcomes of Hands-on
+## Outcomes
 
-This section summarizes the key outcomes we will achieve by completing this project:
+By completing this project, we will:
 
-   - Gain practical experience provisioning AWS infrastructure using Terraform.
-   - Understand how to design and implement a VPC with public and private subnets.
-   - Learn to configure security groups, route tables, and networking components.
-   - Deploy and manage EC2 instances with custom user data scripts.
-   - Set up and test an Application Load Balancer with target groups.
-   - Validate infrastructure by testing connectivity and load balancing behavior.
-   - Develop skills in managing Terraform state and best practices for version control.
+- Gain hands-on experience provisioning AWS infrastructure with Terraform.
+- Understand VPC, subnets, security groups, and networking.
+- Deploy/manage EC2 instances with user data scripts.
+- Set up and test an Application Load Balancer.
+- Practice managing Terraform state and version control.
 
 ---
+
+## Images
 
 - ![Terraform-project-1](./images/Terraform-project-1.png)
 - ![Terraform-project-2](./images/Terraform-project-2.png)
@@ -172,30 +153,24 @@ This section summarizes the key outcomes we will achieve by completing this proj
 - ![Terraform-project-22](./images/Terraform-project-22.png)
 - ![Terraform-project-23](./images/Terraform-project-23.png)
 
---- 
+---
+
 ## Testing the ALB Behaviour
 
-After deploying the infrastructure, we can verify the Application Load Balancer (ALB) is distributing traffic to your web servers as expected.
+After deploying, verify the ALB is distributing traffic to your web servers.
 
 **ALB Endpoint:**  
 `Application-Load-Balancer-1413696647.us-east-1.elb.amazonaws.com`
 
-### Basic Connectivity Test
-
-Use `curl` to check if the ALB is reachable and serving content:
-
+**Basic Connectivity Test:**
 ```sh
 curl --http1.0 --header "Connection: close" http://Application-Load-Balancer-1413696647.us-east-1.elb.amazonaws.com
 ```
 
-### Load Balancing Test
-
-To observe load balancing between the two web servers, run the following loop. This sends multiple requests and extracts the "Instance ID" from each response, showing which backend instance handled each request:
-
+**Load Balancing Test:**
 ```sh
 for i in {1..10}; do
    curl -s --http1.0 -H "Connection: close" http://Application-Load-Balancer-1413696647.us-east-1.elb.amazonaws.com | grep "Instance ID"
 done
 ```
-
-We should see alternating or distributed "Instance ID" values, confirming that the ALB is routing requests to both web servers.
+You should see alternating "Instance ID" values, confirming ALB routing.
