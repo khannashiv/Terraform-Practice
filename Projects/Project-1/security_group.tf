@@ -1,3 +1,4 @@
+############# Security Group for Public Subnet #############################
 
 resource "aws_security_group" "allow_http_ssh_traffic" {
   # Creates a security group for public subnet allowing HTTP and SSH inbound, all outbound
@@ -36,6 +37,8 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1" # semantically equivalent to all ports
 }
+
+########### Security group for Private Subnet #############################################
 
 resource "aws_security_group" "allow_required_traffic_private-subnet" {
   # Creates a security group for private subnet allowing SSH inbound, all outbound
