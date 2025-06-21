@@ -1,45 +1,45 @@
 
 resource "aws_vpc" "vpc-1" {
-  cidr_block=var.vpc_cidr
+  cidr_block = var.vpc_cidr
   tags = {
     Name = "My-VPC"
   }
 }
 
 resource "aws_subnet" "Private-subnet" {
-  vpc_id = aws_vpc.vpc-1.id
-  cidr_block = var.Private-subnet
+  vpc_id            = aws_vpc.vpc-1.id
+  cidr_block        = var.Private-subnet
   availability_zone = "us-east-1a"
-  tags={
-    Name="Private-Subnet"
+  tags = {
+    Name = "Private-Subnet"
   }
 }
 
 resource "aws_subnet" "Public-subnet" {
-  vpc_id            =       aws_vpc.vpc-1.id
-  cidr_block        =       var.Public-subnet
-  availability_zone =       "us-east-1b"
+  vpc_id                  = aws_vpc.vpc-1.id
+  cidr_block              = var.Public-subnet
+  availability_zone       = "us-east-1b"
   map_public_ip_on_launch = true
-  tags={
-    Name="Public-Subnet"
+  tags = {
+    Name = "Public-Subnet"
   }
 }
 
 resource "aws_internet_gateway" "My-igw" {
   vpc_id = aws_vpc.vpc-1.id
   tags = {
-    Name="My-igw"
+    Name = "My-igw"
   }
 }
 
 resource "aws_route_table" "My-RT" {
   vpc_id = aws_vpc.vpc-1.id
-  route{
+  route {
     gateway_id = aws_internet_gateway.My-igw.id
     cidr_block = "0.0.0.0/0"
   }
-  tags={
-    Name="My-RT"
+  tags = {
+    Name = "My-RT"
   }
 }
 
@@ -49,35 +49,35 @@ resource "aws_route_table_association" "RT-Subnet-Association" {
 }
 
 resource "aws_instance" "web_server-1" {
-  ami           = var.ami
-  instance_type = var.instance_type
-  subnet_id     = aws_subnet.Public-subnet.id
+  ami                    = var.ami
+  instance_type          = var.instance_type
+  subnet_id              = aws_subnet.Public-subnet.id
   vpc_security_group_ids = [aws_vpc_security_group_ingress_rule.allow_ssh_ipv4.security_group_id, aws_vpc_security_group_ingress_rule.allow_http_ipv4.security_group_id]
-  user_data_base64 = base64encode(file("./user_data/user_data_web_1.sh"))
-  key_name   = "Jenkins-KVP"
+  user_data_base64       = base64encode(file("./user_data/user_data_web_1.sh"))
+  key_name               = "Jenkins-KVP"
   tags = {
     Name = "web-server-1"
   }
 }
 
 resource "aws_instance" "web_server-2" {
-  ami           = var.ami
-  instance_type = var.instance_type
-  subnet_id     = aws_subnet.Public-subnet.id
+  ami                    = var.ami
+  instance_type          = var.instance_type
+  subnet_id              = aws_subnet.Public-subnet.id
   vpc_security_group_ids = [aws_vpc_security_group_ingress_rule.allow_ssh_ipv4.security_group_id, aws_vpc_security_group_ingress_rule.allow_http_ipv4.security_group_id]
-  user_data_base64 = base64encode(file("./user_data/user_data_web_2.sh"))
-  key_name   = "Jenkins-KVP"
+  user_data_base64       = base64encode(file("./user_data/user_data_web_2.sh"))
+  key_name               = "Jenkins-KVP"
   tags = {
     Name = "web-server-2"
   }
 }
 
 resource "aws_instance" "Repo_server" {
-  ami           = var.ami
-  instance_type = var.instance_type
-  subnet_id     = aws_subnet.Private-subnet.id
+  ami                    = var.ami
+  instance_type          = var.instance_type
+  subnet_id              = aws_subnet.Private-subnet.id
   vpc_security_group_ids = [aws_vpc_security_group_ingress_rule.allow_ssh_ipv4_private_subnet.security_group_id]
-  key_name   = "Jenkins-KVP"
+  key_name               = "Jenkins-KVP"
   tags = {
     Name = "Repo-Server"
   }
@@ -104,7 +104,7 @@ resource "aws_route_table" "MY-RT-Private" {
   vpc_id = aws_vpc.vpc-1.id
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.My-NAT-GW.id
   }
 
@@ -115,7 +115,7 @@ resource "aws_route_table" "MY-RT-Private" {
 }
 
 resource "aws_route_table_association" "RT-Private-Subnet-Association" {
-  
-  subnet_id = aws_subnet.Private-subnet.id
+
+  subnet_id      = aws_subnet.Private-subnet.id
   route_table_id = aws_route_table.MY-RT-Private.id
 }
