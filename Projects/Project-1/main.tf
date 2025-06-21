@@ -72,7 +72,6 @@ resource "aws_instance" "Repo_server" {
 
 resource "aws_eip" "MY_EIP" {
   domain = "vpc"
-  #instance = aws_instance.Repo_server.id
 }
 
 resource "aws_nat_gateway" "My-NAT-GW" {
@@ -92,13 +91,13 @@ resource "aws_route_table" "MY-RT-Private" {
   vpc_id = aws_vpc.vpc-1.id
 
   route {
-  cidr_block = "0.0.0.0/0"
-  nat_gateway_id = aws_nat_gateway.My-NAT-GW.id
+    cidr_block = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.My-NAT-GW.id
   }
 
-tags = {
-  Name = "Private-RT"
-}
+  tags = {
+    Name = "Private-RT"
+  }
 
 }
 
