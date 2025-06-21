@@ -1,16 +1,22 @@
 # Project 1 – AWS VPC, EC2, and Networking with Terraform
 
-This project provisions a basic AWS infrastructure using Terraform. It creates a VPC, public and private subnets, security groups, EC2 instances (web servers and a repo server), NAT gateway, and associated networking resources.
+This project provisions a basic AWS infrastructure using Terraform. It creates a VPC, public and private subnets, security groups, EC2 instances (web servers and a repo server), NAT gateway, Application Load Balancer, and associated networking resources.
 
 ## Structure
 
 - **main.tf**: Core infrastructure (VPC, subnets, route tables, EC2, NAT, EIP)
+- **alb.tf**: Application Load Balancer, target group, listener, and target group attachments
 - **providers.tf**: AWS provider configuration
 - **variables.tf**: Input variables for customization
 - **security_group.tf**: Security groups and rules for public/private subnets
-- **user_data_web_1.sh / user_data_web_2.sh**: User data scripts for web servers
-- **terraform.tfstate / .backup / .lock.info**: Terraform state files (should not be versioned)
+- **outputs.tf**: Outputs for public IPs, ALB DNS, and target group info
+- **user_data/**: User data scripts for web servers
+  - `user_data_web_1.sh`: Installs Python, curl, jq; serves a custom HTML page with EC2 metadata (styled).
+  - `user_data_web_2.sh`: Similar to web_1, with a different HTML page.
+- **terraform.tfstate / terraform.tfstate.backup**: Terraform state files (should not be versioned)
 - **.terraform/**: Terraform provider plugins (should not be versioned)
+- **.terraform.lock.hcl**: Provider dependency lock file (should not be versioned)
+- **README.md**: This documentation
 
 ## Architecture Diagram
 
@@ -21,24 +27,30 @@ flowchart TD
     eip[Elastic IP]
     vpc[VPC]
     pub[Public Subnet]
+    pub2[Public Subnet 2]
     priv[Private Subnet]
     web1[EC2: web_server-1]
     web2[EC2: web_server-2]
     repo[EC2: Repo_server]
+    alb[Application Load Balancer]
+    tg[Target Group]
     rt_pub[Public Route Table]
     rt_priv[Private Route Table]
 
     vpc --> pub
+    vpc --> pub2
     vpc --> priv
     pub --> web1
-    pub --> web2
+    pub2 --> web2
     priv --> repo
 
     pub --> rt_pub
+    pub2 --> rt_pub
     priv --> rt_priv
 
     igw --> rt_pub
     rt_pub --> pub
+    rt_pub --> pub2
 
     eip --> nat
     nat --> rt_priv
@@ -46,9 +58,16 @@ flowchart TD
 
     igw -.-> nat
 
+    alb --> tg
+    tg --> web1
+    tg --> web2
+    alb --> pub
+    alb --> pub2
+
     classDef ec2 fill:#f9f,stroke:#333,stroke-width:1px;
     class web1,web2,repo ec2;
 ```
+
 ## Resources Created
 
 - **VPC**: Custom VPC with CIDR block from `variables.tf`
@@ -61,8 +80,15 @@ flowchart TD
   - Public: Allows HTTP (80) and SSH (22) from anywhere
   - Private: Allows SSH (22) from private subnet only
 - **EC2 Instances**:
-  - `web_server-1` and `web_server-2` in public subnet, each with custom user data
+  - `web_server-1` and `web_server-2` in public subnets, each with custom user data
   - `Repo_server` in private subnet
+- **Application Load Balancer**:
+  - ALB in public subnets, with HTTP listener and target group
+  - Both web servers registered as targets
+- **Outputs**:
+  - Public IPs of web servers
+  - ALB DNS name and internal flag
+  - Target group protocol and stickiness
 
 ## Usage
 
@@ -81,12 +107,19 @@ flowchart TD
 
 ## User Data Scripts
 
-- **user_data_web_1.sh**: Installs Python, curl, jq; serves a custom HTML page with EC2 metadata.
-- **user_data_web_2.sh**: Similar to web_1, with a different HTML page.
+- **user_data_web_1.sh**: Installs Python, curl, jq; serves a styled HTML page with EC2 metadata.
+- **user_data_web_2.sh**: Installs Python, curl, jq; serves a different HTML page with EC2 metadata.
 
 ## Variables
 
 See [`variables.tf`](variables.tf) for configurable options like VPC/subnet CIDRs, instance type, and AMI.
+
+## Outputs
+
+See [`outputs.tf`](outputs.tf) for details on what is output after apply:
+- Public IPs of both web servers
+- ALB DNS name and internal flag
+- Target group protocol and stickiness
 
 ## Notes
 
