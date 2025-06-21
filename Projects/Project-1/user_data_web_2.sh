@@ -47,24 +47,5 @@ EOF
 # Start the web server on port 80 using Python (in the background)
 nohup python3 -m http.server 80 --directory /var/www/custom-web &
 
-# Ensure server starts on reboot (optional)
-cat <<EOF > /etc/systemd/system/custom-python-server.service
-[Unit]
-Description=Custom Python Web Server
-After=network.target
 
-[Service]
-ExecStart=/usr/bin/python3 -m http.server 80 --directory /var/www/custom-web
-Restart=always
-User=root
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-# Enable and start the systemd service
-systemctl daemon-reexec
-systemctl daemon-reload
-systemctl enable custom-python-server.service
-systemctl start custom-python-server.service
 
