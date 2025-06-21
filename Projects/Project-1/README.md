@@ -173,4 +173,4 @@ for i in {1..10}; do
    curl -s --http1.0 -H "Connection: close" http://Application-Load-Balancer-1413696647.us-east-1.elb.amazonaws.com | grep "Instance ID"
 done
 ```
-You should see alternating "Instance ID" values, confirming ALB routing.
+We should see alternating "Instance ID" values, confirming ALB routing.
