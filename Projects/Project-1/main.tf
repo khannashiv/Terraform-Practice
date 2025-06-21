@@ -94,7 +94,7 @@ resource "aws_route_table" "MY-RT-Private" {
   route {
   cidr_block = "0.0.0.0/0"
   nat_gateway_id = aws_nat_gateway.My-NAT-GW.id
-}
+  }
 
 tags = {
   Name = "Private-RT"
