@@ -21,66 +21,60 @@ This project provisions a basic AWS infrastructure using Terraform. It creates a
 ## Architecture Diagram
 
 ```mermaid
-flowchart TD
-
-  %% VPC Container
-  subgraph AWS_VPC [AWS VPC]
+flowchart TB
+  %% VPC Group
+  subgraph AWS_VPC ["AWS VPC"]
     direction TB
 
     %% Public Subnets & Resources
-    subgraph Public_Subnets [Public Subnets]
+    subgraph Public_Subnets ["Public Subnets"]
       direction TB
       pub1[Subnet 1]
-      pub2[Subnet 2]
       web1[EC2: Web Server 1]
+      pub2[Subnet 2]
       web2[EC2: Web Server 2]
-      pub1 --> web1
-      pub2 --> web2
     end
 
     %% Private Subnet & Resources
-    subgraph Private_Subnet [Private Subnet]
+    subgraph Private_Subnet ["Private Subnet"]
+      direction TB
       priv[Subnet]
       repo[EC2: Repo Server]
-      priv --> repo
     end
 
     %% Routing & Gateways
     igw[Internet Gateway]
-    nat[NAT Gateway]
     eip[Elastic IP]
+    nat[NAT Gateway]
     rt_pub[Public Route Table]
     rt_priv[Private Route Table]
-
-    igw --> rt_pub
-    rt_pub --> pub1
-    rt_pub --> pub2
-
-    eip --> nat
-    nat --> rt_priv
-    rt_priv --> priv
   end
 
   %% Load Balancer Layer
   alb[Application Load Balancer]
   tg[Target Group]
 
+  %% Connections
+  igw --> rt_pub
+  rt_pub --> pub1
+  rt_pub --> pub2
+  pub1 --> web1
+  pub2 --> web2
+
+  eip --> nat
+  nat --> rt_priv
+  rt_priv --> priv
+  priv --> repo
+
   alb --> tg
   tg --> web1
   tg --> web2
-
-  %% External Access
   alb --> pub1
   alb --> pub2
 
-  %% Styling for clarity
-  classDef ec2 fill:#f9f,stroke:#333,stroke-width:1.5px;
-  class web1,web2,repo ec2;
-  classDef net fill:#e3f6fc,stroke:#333,stroke-width:1px;
-  class pub1,pub2,priv net;
-
-  %% Optional Notes
-  %% igw -.-> nat  %% IGW and NAT are not directly connected in AWS
+  %% Style Customizations
+  classDef blackbox fill:#000,stroke:#000,color:orange,font-weight:bold;
+  class alb,tg,web1,web2,repo,igw,nat,eip,rt_pub,rt_priv,pub1,pub2,priv blackbox;
 
 ```
 
