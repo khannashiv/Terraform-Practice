@@ -58,6 +58,12 @@ resource "aws_route_table_association" "RT-Subnet-Association" {
   route_table_id = aws_route_table.My-RT.id
 }
 
+resource "aws_route_table_association" "RT-Subnet-Association-2" {
+  subnet_id      = aws_subnet.Public-subnet-2.id
+  route_table_id = aws_route_table.My-RT.id
+}
+
+
 resource "aws_instance" "web_server-1" {
   ami                    = var.ami
   instance_type          = var.instance_type
@@ -66,31 +72,19 @@ resource "aws_instance" "web_server-1" {
   user_data_base64       = base64encode(file("./user_data/user_data_web_1.sh"))
   key_name               = "Jenkins-KVP"
   tags = {
-    Name = "web-server-1"
+    Name = "web-server-2"
   }
 }
 
 resource "aws_instance" "web_server-2" {
   ami                    = var.ami
   instance_type          = var.instance_type
-  subnet_id              = aws_subnet.Public-subnet.id
+  subnet_id              = aws_subnet.Public-subnet-2.id
   vpc_security_group_ids = [aws_vpc_security_group_ingress_rule.allow_ssh_ipv4.security_group_id, aws_vpc_security_group_ingress_rule.allow_http_ipv4.security_group_id]
   user_data_base64       = base64encode(file("./user_data/user_data_web_2.sh"))
   key_name               = "Jenkins-KVP"
   tags = {
     Name = "web-server-2"
-  }
-}
-
-resource "aws_instance" "web_server-3" {
-  ami                    = var.ami
-  instance_type          = var.instance_type
-  subnet_id              = aws_subnet.Public-subnet-2.id
-  vpc_security_group_ids = [aws_vpc_security_group_ingress_rule.allow_ssh_ipv4.security_group_id, aws_vpc_security_group_ingress_rule.allow_http_ipv4.security_group_id]
-  user_data_base64       = base64encode(file("./user_data/user_data_web_1.sh"))
-  key_name               = "Jenkins-KVP"
-  tags = {
-    Name = "web-server-3"
   }
 }
 
