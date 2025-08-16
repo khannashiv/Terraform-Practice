@@ -1,3 +1,6 @@
+# Reading attributes from terrafrom state file & matching those attributes by going to aws UI. Such as:
+# instance_id, public_ip, private_ip, dns, id etc.
+
 provider "aws" {
   region = "us-east-1"
 }
