@@ -32,7 +32,7 @@ resource "aws_instance" "web_3" {
 
 # Test 5: Conditional Xpression with multiple variables.
 
-resource "aws_instance" "web_3" {
+resource "aws_instance" "web_4" {
     ami = "ami-0de716d6197524dd9"
-    instance_type = var.region == "us-east-1" && var.environment[env_2] == "UAT" ? "t6.micro" : "t6.large"
+    instance_type = var.region == "us-east-1" && var.demo["env_2"] == "UAT" ? "t6.micro" : "t6.large"
 }
