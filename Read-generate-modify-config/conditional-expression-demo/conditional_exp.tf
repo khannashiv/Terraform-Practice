@@ -5,8 +5,8 @@ provider "aws" {
 # Test 1: Conditional Xpression.
 
 resource "aws_instance" "web" {
-  ami = "ami-0de716d6197524dd9"
-  instance_type = var.env == "development" ? "t2.micro" : "t2.large" # equal to comparision operator.
+  ami = "ami-0de716d6197524dd9"                                         # We can also variablize this.
+  instance_type = var.env == "development" ? "t2.micro" : "t2.large"    # equal to comparision operator.
 }
 
 # Test 2: Conditional Xpression.
