@@ -23,7 +23,6 @@ variable "ami" {
   }
 }
 
-
 resource "aws_instance" "app-dev" {
    ami = lookup(var.ami,var.region)
    instance_type = "t2.micro"
