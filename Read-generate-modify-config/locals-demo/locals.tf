@@ -3,8 +3,10 @@ provider "aws" {
 }
 
 locals {
-  my_local_sg = {                               # Any name can be given to locals block ( local values ).
-    name = "firewall-sg"                        # Here in this case name is given as: my_local_sg
+  my_local_sg = {                                                                 # Any name can be given to locals block ( local values ).
+    name = "firewall-sg"                                                          # Here in this case name is given as: my_local_sg
+    # Creation_date = formatdate("DD-MM-YYYY", timestamp())                       # Working.
+    creation_date = "Time stamp is ${formatdate("DD-MM-YYYY", timestamp())}"      # Working.
   }
 }
 

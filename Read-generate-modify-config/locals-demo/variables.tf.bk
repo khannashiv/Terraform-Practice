@@ -6,6 +6,8 @@ variable "firewall-sg" {
   type = map
   default = {
     name = "firewall-sg"
+    # creation_date = "date-${formatdate("MM DD YYYY", timestamp())}"   ## O/P is : Error: Function calls not allowed
+    # Creation_date = formatdate("MM DD YYYY", timestamp())             ## O/P is : Error: Function calls not allowed
   }
 }
 
