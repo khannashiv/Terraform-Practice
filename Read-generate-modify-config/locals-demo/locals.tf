@@ -10,10 +10,10 @@ locals {
 
 resource "aws_security_group" "sg-1" {
   name = "app-security-group"
-  tags = local.my_local_sg
+  tags = local.my_local_sg                      # Calling locals block (local values block) using local.
 }
 
 resource "aws_security_group" "sg-2" {
   name = "db-security-group"
-  tags = local.my_local_sg
+  tags = local.my_local_sg                      # Calling locals block (local values block) using local.
 }
