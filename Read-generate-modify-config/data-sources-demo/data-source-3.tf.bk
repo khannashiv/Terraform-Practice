@@ -1,0 +1,10 @@
+# data "aws_instance" "foo" {} 
+
+# Following error message appears when we run above data block.
+
+        #  with data.aws_instance.foo,
+        # │   on data-source-3.tf line 1, in data "aws_instance" "foo":
+        # │    1: data "aws_instance" "foo" {} 
+        # Error: multiple EC2 Instances matched; use additional constraints to reduce matches to a single EC2 Instance
+
+data "aws_instances" "bar" {} # Working, if we have multiple ec2 instances residing under single region. 
