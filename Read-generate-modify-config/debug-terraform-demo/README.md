@@ -1,5 +1,5 @@
 
-**Commands to set environment variables in case of windows/Linux/Mac OS in order to set debugging for current running cmd/terminal**
+**Commands to set environment variables in case of windows/Linux/Mac OS in order to set debugging for current running cmd/terminal (on temporary basis)**
 
 **For Linux/Mac OS**
 - export TF_LOG=TRACE
