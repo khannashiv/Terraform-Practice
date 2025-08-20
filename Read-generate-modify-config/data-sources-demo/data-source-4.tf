@@ -1,4 +1,4 @@
-# Fetching the latest OS image using data source & using this ami we are going to create resource block.
+# Use Case: Fetching the latest OS image using data source & using this ami we are going to create resource block.
 # We are writing code such a way that ec2 instance can be deployed in any region without harcoding the ami / image id.
 # for a specific region.
 # Along with that code will always pull latest ami / image from the specific region.
