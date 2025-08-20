@@ -17,6 +17,6 @@
 - set TF_LOG_PATH=C:\path\to\log\file.log
 
 **Further to store logs in a file**
-- Step1 : Set the level of verbosity that you need say : TF_LOG=DEBUG using cmd / terminal. 
+- Step1 : Set the level of verbosity that you need say : TF_LOG=TRACE using cmd / terminal. 
 - Step2 : Then set the TF_LOG_PATH to the desired log file path.
-- Step3 : Run your Terraform command and the logs will be written to the specified file.
+- Step3 : Run your Terraform commands ( for example: you have run terraform plan first >> followed by terraform apply >> entire execution of terraform commands will be stored in the same file & terminal will not provide trace level logs rather we can view trace level logs captured inside the same file) and the logs will be written to the specified file.
