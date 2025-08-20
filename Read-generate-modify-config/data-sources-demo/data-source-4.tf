@@ -21,7 +21,7 @@ data "aws_ami" "example" {
   owners = ["amazon"]
   filter {
     name   = "name"
-    values = ["ubuntu-minimal/images/hvm-ssd/ubuntu-lunar-23.04-amd64-minimal-*"]
+    values = ["ubuntu-minimal/images/hvm-ssd/ubuntu-lunar-23.04-amd64-minimal-*"] # To pull latest ami / image
   }
 }
 
