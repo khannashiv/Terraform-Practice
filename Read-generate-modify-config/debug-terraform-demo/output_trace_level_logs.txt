@@ -1537,3 +1537,21 @@
 2025-08-20T08:45:10.508+0530 [TRACE] statemgr.Filesystem: writing snapshot at terraform.tfstate
 2025-08-20T08:45:10.510+0530 [TRACE] statemgr.Filesystem: removing lock metadata file .terraform.tfstate.lock.info
 2025-08-20T08:45:10.511+0530 [TRACE] statemgr.Filesystem: unlocked by closing terraform.tfstate
+2025-08-20T09:04:15.856+0530 [INFO]  Terraform version: 1.12.2
+2025-08-20T09:04:15.856+0530 [DEBUG] using github.com/hashicorp/go-tfe v1.74.1
+2025-08-20T09:04:15.856+0530 [DEBUG] using github.com/hashicorp/hcl/v2 v2.23.1-0.20250203194505-ba0759438da2
+2025-08-20T09:04:15.856+0530 [DEBUG] using github.com/hashicorp/terraform-svchost v0.1.1
+2025-08-20T09:04:15.856+0530 [DEBUG] using github.com/zclconf/go-cty v1.16.2
+2025-08-20T09:04:15.856+0530 [INFO]  Go runtime version: go1.24.2
+2025-08-20T09:04:15.856+0530 [INFO]  CLI args: []string{"D:\\Application Setup\\Terraform\\terraform_1.12.2_windows_386\\terraform.exe", "fmt"}
+2025-08-20T09:04:15.859+0530 [TRACE] Stdout is a terminal of width 94
+2025-08-20T09:04:15.860+0530 [TRACE] Stderr is a terminal of width 94
+2025-08-20T09:04:15.860+0530 [TRACE] Stdin is a terminal
+2025-08-20T09:04:15.862+0530 [DEBUG] Attempting to open CLI config file: C:\Users\Shiv\AppData\Roaming\terraform.rc
+2025-08-20T09:04:15.862+0530 [DEBUG] File doesn't exist, but doesn't need to. Ignoring.
+2025-08-20T09:04:15.862+0530 [DEBUG] ignoring non-existing provider search directory terraform.d/plugins
+2025-08-20T09:04:15.862+0530 [DEBUG] ignoring non-existing provider search directory C:\Users\Shiv\AppData\Roaming\terraform.d\plugins
+2025-08-20T09:04:15.863+0530 [DEBUG] ignoring non-existing provider search directory C:\Users\Shiv\AppData\Roaming\HashiCorp\Terraform\plugins
+2025-08-20T09:04:15.863+0530 [INFO]  CLI command args: []string{"fmt"}
+2025-08-20T09:04:15.863+0530 [TRACE] terraform fmt: looking for files in .
+2025-08-20T09:04:15.865+0530 [TRACE] terraform fmt: Formatting main.tf
