@@ -1,5 +1,6 @@
 # Commands used and docs followed related to graph are as follows
-    #  terraform graph
+    # terraform graph
+    # terraform graph -type=plan
     # https://developer.hashicorp.com/terraform/cli/commands/graph
     # https://graphviz.org/download/ # Install graphwiz natively on windows OS and others as well.
     # Some of the online editors for graphwiz are as follows.
