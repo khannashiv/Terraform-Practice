@@ -3,7 +3,7 @@
     # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user
     # https://developer.hashicorp.com/terraform/language/values/outputs
     # https://developer.hashicorp.com/terraform/cli/commands/output
-    # Some commands used are:
+    # Some commands used in this handson are as follows:
       # terraform output user_arns
       # terraform output "user_names"
 
