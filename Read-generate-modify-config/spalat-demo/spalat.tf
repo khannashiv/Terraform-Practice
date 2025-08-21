@@ -1,4 +1,6 @@
-# Refrence Docs: https://developer.hashicorp.com/terraform/language/expressions/splat
+# Refrence Docs: 
+    # https://developer.hashicorp.com/terraform/language/expressions/splat
+    # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user
 
 provider "aws" {
   region = "us-east-1"
