@@ -1,0 +1,40 @@
+# Example 1: Dynamic Block for Security Group Rules (Method-2)
+
+variable "ingress_rules" {
+  description = "List of ingress rules"
+  type = list(object({
+    cidr_ip    = string
+    from_port  = number
+    to_port    = number
+    protocol   = string
+  }))
+  default = [
+    {
+      cidr_ip    = "0.0.0.0/0"
+      from_port  = 22
+      to_port    = 22
+      protocol   = "tcp"
+    },
+    {
+      cidr_ip    = "192.168.1.0/24"
+      from_port  = 80
+      to_port    = 80
+      protocol   = "tcp"
+    }
+  ]
+}
+
+resource "aws_security_group" "example" {
+  name        = "example-sg"
+  description = "Example Security Group"
+  
+  dynamic "ingress" {
+    for_each = var.ingress_rules
+    content {
+      cidr_blocks = [ingress.value.cidr_ip]
+      from_port   = ingress.value.from_port
+      to_port     = ingress.value.to_port
+      protocol    = ingress.value.protocol
+    }
+  }
+}

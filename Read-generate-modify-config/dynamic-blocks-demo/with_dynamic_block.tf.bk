@@ -1,0 +1,26 @@
+# Example 0: Dynamic Block for Security Group Rules (Method-1)
+
+provider "aws" {
+  region = "us-east-1"
+}
+
+variable "sg_port" {
+  type    = list
+  default = [22, 80, 443, 21]
+}
+
+resource "aws_security_group" "app-sg" {
+
+  name        = "app-sg"
+  description = "This is a app-sg"
+
+  dynamic "ingress" {
+    for_each = var.sg_port
+    content {
+      from_port   = ingress.value # Name-of-dynamic-block.value
+      to_port     = ingress.value
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  }
+}

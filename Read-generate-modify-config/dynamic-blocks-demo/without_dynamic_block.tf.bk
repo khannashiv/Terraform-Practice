@@ -1,0 +1,30 @@
+provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_security_group" "app-sg" {
+  name        = "app-sg"
+  description = "This is application security group."
+
+  ingress {
+    protocol    = "tcp"
+    from_port   = 1234
+    to_port     = 1234
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    protocol    = "tcp"
+    from_port   = 4567
+    to_port     = 4567
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    protocol    = "tcp"
+    from_port   = 8901
+    to_port     = 8901
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+}
