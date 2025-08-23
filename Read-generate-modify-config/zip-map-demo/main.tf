@@ -1,3 +1,5 @@
+# Use_Case: Do direct mapping of user_name with user_arn.
+
 provider "aws" {
   region = "us-east-1"
 }
