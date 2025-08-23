@@ -9,9 +9,13 @@ resource "aws_iam_user" "lb" {
 }
 
 output "user_names" {
-  value = aws_iam_user.lb.user_names
+  value = aws_iam_user.lb[*].name
 }
 
 output "user_arns" {
-  value = aws_iam_user.lb.arn
+  value = aws_iam_user.lb[*].arn
+}
+
+output "combined_output" {
+  value = zipmap(aws_iam_user.lb[*].name, aws_iam_user.lb[*].arn)
 }
