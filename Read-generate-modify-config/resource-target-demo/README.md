@@ -29,3 +29,6 @@ Below are explanations for each command:
 
 - `terraform destroy -target="aws_instance.web" -auto-approve`  
     Removes only the `aws_instance.web` resource from your infrastructure, skipping the interactive approval step.
+
+- `terraform plan -refresh=false`  
+    Generates an execution plan without refreshing the state with remote objects. This is useful when you want to see what Terraform would do based on the current state file, without checking for any changes in the actual infrastructure.
