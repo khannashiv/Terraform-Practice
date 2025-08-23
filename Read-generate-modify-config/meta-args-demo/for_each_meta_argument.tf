@@ -22,9 +22,9 @@ variable "demo-map" {
     type = map
     default = {
 
-        Dev   = "ami-0360c520857e3138f" # Ubuntu OS
-        Stage = "ami-0fd3ac4abb734302a" # RedHat OS
-        Prod  = "ami-00ca32bbc84273381" # Amazon Linux
+        Dev   = "ami-0360c520857e3138f" # Ubuntu AMI
+        Stage = "ami-0fd3ac4abb734302a" # RedHat AMI
+        Prod  = "ami-00ca32bbc84273381" # Amazon Linux AMI
     }
   
 }
