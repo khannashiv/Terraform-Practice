@@ -1,3 +1,5 @@
+# Example 1 : Explicit Dependency using depends_on flag.
+
 provider "aws" {
   region = "us-east-1"
 }
@@ -14,8 +16,6 @@ resource "aws_instance" "demo-ec2" {
   # NOTE: Destruction of resources will be done in reverse way where ec2 will be destroyed
   # first & later s3 bucket. (This is explicit dependency.)
 }
-
-
 
 # Output looks something like shown below.
 
@@ -43,3 +43,7 @@ resource "aws_instance" "demo-ec2" {
                 # aws_s3_bucket.demo-bucket: Destroying... [id=my-terraform-learning-bucket-001]
                 # aws_s3_bucket.demo-bucket: Destruction complete after 1s
                 # Destroy complete! Resources: 2 destroyed.
+
+# Example 2 : Implicit Dependency using in-built or available arguments.
+
+
