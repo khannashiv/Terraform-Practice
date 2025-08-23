@@ -8,7 +8,9 @@ resource "aws_instance" "web" {
   tags = {
     Name = "Web_Instance"
   }
-#   lifecycle {
-#     ignore_changes = [ tags ]
-#   }
+
+  lifecycle {
+    ignore_changes = [ tags ]
+  }
+
 }
