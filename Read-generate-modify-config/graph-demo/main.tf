@@ -21,11 +21,12 @@ resource "aws_security_group" "web-sg" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "web" {
+  description       = "White-listing EIP"
   security_group_id = aws_security_group.web-sg.id
   ip_protocol = "tcp"
   from_port = 443
   to_port = 443
-  cidr_ipv4 = "White-listing-eip-${aws_eip.public-ip.public_ip}/32"
+  cidr_ipv4 = "${aws_eip.public-ip.public_ip}/32"
 }
 
 resource "aws_instance" "web" {
