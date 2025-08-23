@@ -1,4 +1,4 @@
-# Meta-argument-1 : Create_before-destroy
+# Meta-argument-2 : Create_before-destroy
 
 provider "aws" {
   region = "us-east-1"
