@@ -29,7 +29,7 @@ variable "demo-map" {
 }
 
 resource "aws_instance" "dummy" {
-  instance_type = "t1.micro"
+  instance_type = "t2.micro"
   for_each = var.demo-map
   ami = each.value
   tags = {
