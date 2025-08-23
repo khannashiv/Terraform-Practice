@@ -46,4 +46,13 @@ resource "aws_instance" "demo-ec2" {
 
 # Example 2 : Implicit Dependency using in-built or available arguments.
 
+resource "aws_security_group" "prod-sg" {
+  name = "Prod-SG"
+}
 
+resource "aws_instance" "prod" {
+
+    instance_type = "t1.micro"
+    ami = "ami-0360c520857e3138f"
+    vpc_security_group_ids = [ aws_security_group.prod-sg ] # Implicit Dependency
+}
