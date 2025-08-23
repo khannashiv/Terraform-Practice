@@ -7,7 +7,7 @@ module "git-module" {
   # sitting at the root of the repository.
 
   # Now we are making use of variables such that we are replacing static values under main.tf with variables.
-  ami           = "ami-0fd3ac4abb734302a"
-  region        = "us-east-1"
+  ami           = "ami-064fad1cd2e859c98"
+  region        = "ap-south-1"
   instance_type = "t2.micro"
 }
