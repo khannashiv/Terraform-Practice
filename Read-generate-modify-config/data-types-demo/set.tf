@@ -4,11 +4,11 @@
 # placing last element in the start of list and vice-versa. Then go with terraform plan >> followed by 
 # terraform apply. We will see order does not matter in this case.
 
-variable "set-1" {
-  type = set(string)
-  default = ["Alice", "Bob", "John", "Alice"]
-}
+# variable "set-1" {
+#   type = set(string)
+#   default = ["Alice", "Bob", "John", "Alice"]
+# }
 
-output "set-1" {
-  value = var.set-1
-}
+# output "set-1" {
+#   value = var.set-1
+# }
