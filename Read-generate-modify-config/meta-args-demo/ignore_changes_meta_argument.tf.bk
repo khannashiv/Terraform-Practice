@@ -12,10 +12,11 @@ resource "aws_instance" "web" {
   }
 
   lifecycle {
-    ignore_changes = [ tags ] # Here default behavior of the terraform has been customnized such that 
+    ignore_changes = [ tags ] # Here default behavior of the terraform has been customized such that 
     # now anyone who is trying to add tags to this insatnce from UI will able to add tags whereas default
     # behaviour of terraform would have deleted the tags i.e. if any modifications made to aws resource from aws UI.
-    ignore_changes = all # Tested this as well.
+    ignore_changes = all #Tested this as well, where terraform will ignore all the changes made to any attribute
+    # of the resource via UI.
   }
 
 }
