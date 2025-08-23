@@ -1,4 +1,5 @@
 # Example 1 : Implamenting for_each on set data type.
+# Refrence Docs : https://developer.hashicorp.com/terraform/language/meta-arguments/for_each
 
 # provider "aws" {
 #   region = "us-east-1"
