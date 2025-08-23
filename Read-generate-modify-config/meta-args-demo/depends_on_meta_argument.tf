@@ -12,7 +12,7 @@ resource "aws_instance" "demo-ec2" {
   depends_on = [ aws_s3_bucket.demo-bucket ] # This means first s3 bucket is created & 
   # later ec2 instance is created due to depends_on flag.
   # NOTE: Destruction of resources will be done in reverse way where ec2 will be destroyed
-  # first & later s3 bucket. 
+  # first & later s3 bucket. (This is explicit dependency.)
 }
 
 
