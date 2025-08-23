@@ -19,5 +19,5 @@ output "user_arns" {
 }
 
 output "combined_output" {
-  value = zipmap(aws_iam_user.lb[*].name, aws_iam_user.lb[*].arn)
+  value = zipmap(aws_iam_user.lb[*].name, aws_iam_user.lb[*].arn) # Use of zipmap functio.
 }
