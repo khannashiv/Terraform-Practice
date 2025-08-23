@@ -2,3 +2,16 @@ provider "aws" {
   region = "us-east-1"
 }
 
+resource "aws_iam_user" "lb" {
+  name = "AWS-IAM-User-${count.index}"
+  count = 3
+  path = "/"
+}
+
+output "user_names" {
+  value = aws_iam_user.lb.user_names
+}
+
+output "user_arns" {
+  value = aws_iam_user.lb.arn
+}
