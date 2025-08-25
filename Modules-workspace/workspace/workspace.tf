@@ -13,5 +13,5 @@ resource "aws_instance" "web" {
   instance_type = local.workspace_instance_type[terraform.workspace]
   ami           = "ami-0360c520857e3138f"
   # instance_type = "t2.micro" # Tested by hardcoding the value for instance type & confirmed for each 
-  # workspace we are getting diffrent state files.
+  # workspace (for both dev as well as prod) we are getting diffrent state files.
 }
