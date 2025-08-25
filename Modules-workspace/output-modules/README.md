@@ -6,7 +6,7 @@
     - Also note we can define provider block in root module only and it will be inherited by child modules. Hence we have defined provider in team-a folder's module.tf file and removed from ec2-module's ec2.tf file.
     - Multiple provider configuration in case of modules.
 
-        - STEP 1 : We can use provider argument within a module ( root module ) block to explicitly   define which provider configurations are available in child module.
+        - STEP 1 : We can use providers argument within a module ( root module ) block to explicitly   define which provider configurations are available in child module.
 
         - STEP 2 : Declare configuration aliases:  In child module we need to declare configuration aliases for the provider.
 
