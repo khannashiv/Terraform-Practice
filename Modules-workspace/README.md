@@ -40,6 +40,8 @@ This repository demonstrates the use of **Terraform modules** and **workspaces**
 - https://developer.hashicorp.com/terraform/language/modules/sources#local-paths
 - https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip.html
 - https://developer.hashicorp.com/terraform/language/modules/develop/providers
+- https://developer.hashicorp.com/terraform/cli/workspaces
+- https://developer.hashicorp.com/terraform/language/state/workspaces
 
 ## Notes
 
