@@ -16,14 +16,14 @@ resource "aws_iam_user" "lb" {
   count = 3
 }
 
-resource "aws_security_group" "Dev-SG" {
+resource "aws_security_group" "Prod-SG" {
   name = "Dev_SG"
 }
 
 resource "aws_vpc_security_group_ingress_rule" "inbound_https" {
 
   description       = "Allow https traffic."
-  security_group_id = aws_security_group.Dev-SG.id
+  security_group_id = aws_security_group.Prod-SG.id
   ip_protocol       = "tcp"
   to_port           = 443
   from_port         = 443
@@ -31,13 +31,13 @@ resource "aws_vpc_security_group_ingress_rule" "inbound_https" {
 
 }
 
-resource "aws_vpc_security_group_ingress_rule" "inbound_ssh" {
+# resource "aws_vpc_security_group_ingress_rule" "inbound_ssh" {
 
-  description       = "Allow SSH traffic."
-  security_group_id = aws_security_group.Dev-SG.id
-  ip_protocol       = "tcp"
-  to_port           = 22
-  from_port         = 22
-  cidr_ipv4         = "10.0.0.0/16"
+#   description       = "Allow SSH traffic."
+#   security_group_id = aws_security_group.Dev-SG.id
+#   ip_protocol       = "tcp"
+#   to_port           = 22
+#   from_port         = 22
+#   cidr_ipv4         = "10.0.0.0/16"
 
-}
+# }
