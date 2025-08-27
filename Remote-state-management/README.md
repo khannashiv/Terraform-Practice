@@ -8,6 +8,15 @@
 - [Terraform Time Provider - Sleep Resource](https://registry.terraform.io/providers/hashicorp/time/0.9.1/docs/resources/sleep)
 - [Terraform State List Command](https://docs.devnetexperttraining.com/static-docs/Terraform/docs/cli/commands/state/list.html)
 
+- [Terraform Import Usage](https://developer.hashicorp.com/terraform/cli/import/usage)  
+    Learn how to import existing infrastructure resources into your Terraform state, allowing you to manage them with Terraform going forward.
+
+- [Terraform State Import Tutorial](https://developer.hashicorp.com/terraform/tutorials/state/state-import?utm_source=WEBSITE&utm_medium=WEB_IO&utm_offer=ARTICLE_PAGE&utm_content=DOCS)  
+    Step-by-step guide on importing resources into Terraform, including practical examples and troubleshooting tips.
+
+- [Remote State Data Source](https://developer.hashicorp.com/terraform/language/state/remote-state-data)  
+    Documentation on accessing remote state data from other Terraform configurations, enabling data sharing between workspaces or projects.
+
 ---
 
 ## Sample Commands
