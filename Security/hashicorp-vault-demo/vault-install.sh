@@ -23,7 +23,6 @@ After=network.target
 
 [Service]
 User=root
-# ExecStart=/usr/bin/vault server -dev -dev-root-token-id="root"
 ExecStart=/usr/bin/vault server -dev -dev-root-token-id="root" -dev-listen-address="0.0.0.0:8200"
 Restart=on-failure
 LimitNOFILE=65536
