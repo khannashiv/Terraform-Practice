@@ -1,0 +1,16 @@
+provider "aws" {}
+
+variable "sensitive_content" {
+  default = "Super_Secret_Password"
+  sensitive = true
+}
+
+resource "local_file" "foo" {
+  filename = "${path.module}/demo.txt"
+  content = var.sensitive_content
+}
+
+output "sensitive_data" {
+  value = local_file.foo.content
+  sensitive = true
+}

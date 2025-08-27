@@ -1,0 +1,10 @@
+provider "aws" {}
+
+variable "sensitive_content" {
+  default = "Super_Secret_Password"
+}
+
+resource "local_file" "bar" {
+  filename = "${path.module}/demo.txt"
+  content = var.sensitive_content
+}

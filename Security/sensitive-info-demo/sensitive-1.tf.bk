@@ -1,0 +1,11 @@
+provider "aws" {}
+
+variable "sample_content" {
+  default = "Super_Secret_Password"
+  sensitive = true
+}
+
+resource "local_file" "foo" {
+  filename = "${path.module}/demo.txt"
+  content = var.sample_content
+}

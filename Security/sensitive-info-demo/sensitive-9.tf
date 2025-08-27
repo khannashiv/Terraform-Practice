@@ -1,0 +1,33 @@
+provider "aws" {}
+
+# For mature providers such as AWS, Terraform will by default secure / hide sensitive information.
+# As we can see in the following code, we have password as sensitive information but upon running
+# the following code via terraform plan we can see that password = (sensitive value) altough we 
+# have not defined any variable for password which contains parameter i.e. sensitive=true
+
+variable "db_user_name" {
+  default = "Admin"
+  sensitive = true
+}
+
+resource "aws_db_instance" "default" {
+  allocated_storage    = 10
+  db_name              = "mydb"
+  engine               = "mysql"
+  engine_version       = "8.0"
+  instance_class       = "db.t3.micro"
+  username             = var.db_user_name
+  password             = "foobarbaz"
+  parameter_group_name = "default.mysql8.0"
+  skip_final_snapshot  = true
+}
+
+output "db_password" {
+  value = aws_db_instance.default.password
+  sensitive = true
+}
+
+output "db_user_name" {
+  value = aws_db_instance.default.username
+  sensitive = true
+}

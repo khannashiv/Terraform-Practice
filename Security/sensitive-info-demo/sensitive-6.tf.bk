@@ -1,0 +1,11 @@
+provider "aws" {}
+
+resource "local_sensitive_file" "foo" {
+  content  = "foo!"
+  filename = "${path.module}/foo.bar"
+}
+
+output "sensitive_data" {
+  value = local_sensitive_file.foo.content
+  sensitive = true
+}
