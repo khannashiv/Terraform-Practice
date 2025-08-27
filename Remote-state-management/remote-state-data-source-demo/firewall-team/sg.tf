@@ -10,6 +10,6 @@ resource "aws_vpc_security_group_ingress_rule" "whitelist-eip" {
   to_port           = 22
   cidr_ipv4         = "${data.terraform_remote_state.eip.outputs.display_eip}/32"
   tags = {
-    name = "Whitelist_EIP"
+    Name = "Whitelist_EIP"
   }
 }
