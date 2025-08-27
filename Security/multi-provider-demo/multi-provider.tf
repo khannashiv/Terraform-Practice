@@ -21,7 +21,7 @@ resource "aws_security_group" "Dev-SG" {
   provider = aws.mumbai
 }
 
-resource "aws-aws_security_group" "Stage-SG" {
+resource "aws_aws_security_group" "Stage-SG" {
   name = "Stage-SG"
   provider = aws.canada
 }
