@@ -15,10 +15,10 @@ resource "aws_instance" "web-server" {
   }
 }
 
-resource "null_resource" "cleanup_local_files" {
-  provisioner "local-exec" {
-    when    = destroy
-    command = "rm -f ${path.module}/Server_IP.txt ${path.module}/demo.txt"
-  }
-}
+# resource "null_resource" "cleanup_local_files" {
+#   provisioner "local-exec" {
+#     when    = destroy
+#     command = "rm -f ${path.module}/Server_IP.txt ${path.module}/demo.txt"
+#   }
+# }
 
