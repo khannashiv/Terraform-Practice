@@ -1,2 +1,0 @@
-Public IP of EC2 Instance is: 3.89.243.207
-Private IP of EC2 Instance is: 172.31.29.198

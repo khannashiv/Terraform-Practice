@@ -1,1 +1,0 @@
-The server's private IP address 172.31.29.198, along with public IP 3.89.243.207 
