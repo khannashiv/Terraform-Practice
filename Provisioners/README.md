@@ -8,6 +8,7 @@ NOTE:
     - M2 : Uncomment the null_resource block in local-exec.tf to delete the files created locally using local-exec provisioner.
 
 - https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec
+- https://developer.hashicorp.com/terraform/language/resources/provisioners/connection
 - https://developer.hashicorp.com/terraform/language/resources/provisioners/file
 - https://developer.hashicorp.com/terraform/language/resources/provisioners/connection
 - https://developer.hashicorp.com/terraform/language/resources/provisioners/null_resource
