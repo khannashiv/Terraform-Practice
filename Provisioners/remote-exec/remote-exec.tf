@@ -28,6 +28,14 @@ resource "aws_vpc_security_group_ingress_rule" "Ing_Nginx" {
   }
 }
 
+resource "aws_vpc_security_group_egress_rule" "Egr_Nginx" {
+  security_group_id = aws_security_group.SG_Nginx.id
+  ip_protocol       = "-1"  # all protocols
+  cidr_ipv4         = "0.0.0.0/0"
+  description       = "Allow all outbound traffic"
+}
+
+
 resource "aws_instance" "web-server" {
   ami                    = "ami-0360c520857e3138f"
   instance_type          = "t2.micro"
