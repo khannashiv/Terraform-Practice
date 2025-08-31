@@ -2,13 +2,14 @@ provider "aws" {
   region = "us-east-1"
 }
 
+data "aws_iam_users" "list_of_users" {}
+
 data "aws_caller_identity" "current" {}
 
 resource "aws_iam_user" "lb" {
   name = "admin-user-${data.aws_caller_identity.current.id}"
+  path = "/system/"
 }
-
-data "aws_iam_users" "list_of_users" {}
 
 output "list_of_users" {
   value = data.aws_iam_users.list_of_users.names
