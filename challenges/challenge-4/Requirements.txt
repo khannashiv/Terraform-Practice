@@ -1,0 +1,5 @@
+Following are the requirements to achieve as a part of challengs-4
+
+1. Client wants a code that can create IAM users in AWS, such that : admin-user-{account-number-of-aws}. 
+2. Along with list of users in AWS, client also wants terraform to show total number of users in AWS.
+3. Client is looking for a logic that will show names of all the users in AWS account as a part of output.
